@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '_typo';
+
+header,
+footer {
+	@apply py-20;
+}
+
+section {
+	@apply py-8;
+}

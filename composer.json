@@ -1,0 +1,23 @@
+{
+	"name": "aw-studio/theme-installer",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "cbl",
+			"email": "lennart.carbe@gmail.com"
+		}
+	],
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"Theme\\": "src/"
+		}
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Theme\\ThemeInstallerServiceProvider"
+			]
+		}
+	}
+}
