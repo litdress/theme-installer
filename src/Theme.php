@@ -38,6 +38,8 @@ class Theme
      */
     protected $theme;
 
+    protected $repeatables = [];
+
     /**
      * Create new Theme instance.
      *
@@ -49,6 +51,37 @@ class Theme
     {
         $this->files = $files;
         $this->laravel = $laravel;
+    }
+
+    /**
+     * Add repeatables.
+     *
+     * @return Closure
+     */
+    public function repeatables()
+    {
+        return function ($rep) {
+            if (! array_key_exists($this->theme, $this->repeatables)) {
+                return;
+            }
+
+            foreach ($this->repeatables[$this->theme] as $repeatable) {
+                $rep->add($repeatable);
+            }
+        };
+    }
+
+    public function repeatable($theme, $repeatable)
+    {
+        if (! array_key_exists($theme, $this->repeatables)) {
+            $this->repeatables[$theme] = [];
+        }
+
+        if (in_array($repeatable, $this->repeatables[$theme])) {
+            return;
+        }
+
+        $this->repeatables[$theme][] = $repeatable;
     }
 
     /**
@@ -86,6 +119,11 @@ class Theme
             $this->files->copyDirectory($packagePath . '/resources', $path);
             $this->files->copyDirectory($packagePath . '/assets', public_path('themes/' . $name));
         }
+    }
+
+    public function getTheme()
+    {
+        return $this->theme;
     }
 
     /**
